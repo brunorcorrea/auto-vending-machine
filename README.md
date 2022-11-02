@@ -1,0 +1,2 @@
+install paprika
+install mysql

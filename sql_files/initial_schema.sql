@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS venda
 (
     id          int auto_increment primary key,
     id_cliente  int   not null,
-    valor_total float not null
+    valor_total float not null,
+    data timestamp not null
 );
 
 CREATE TABLE IF NOT EXISTS produtos_vendidos
