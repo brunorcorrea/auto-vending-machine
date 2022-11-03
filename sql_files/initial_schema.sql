@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS cliente
 (
     id       int auto_increment primary key,
-    cpf      char(12)     not null,
+    cpf      char(11)     not null,
     nome     VARCHAR(255) not null,
     email    VARCHAR(255) not null,
     telefone VARCHAR(11)  not null,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS venda
     data timestamp not null
 );
 
-CREATE TABLE IF NOT EXISTS produtos_vendidos
+CREATE TABLE IF NOT EXISTS produto_venda
 (
     id         int auto_increment primary key,
     id_produto int   not null,
