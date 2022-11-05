@@ -5,8 +5,9 @@ from venda import Venda
 import time
 from datetime import datetime
 
-def mock_cliente(bd):
-    cli = Cliente(
+
+def mock_cliente():
+    c = Cliente(
         cpf="47048952612",
         nome="Bruno",
         email="bruno@email.com",
@@ -17,13 +18,9 @@ def mock_cliente(bd):
 
     bd.create_client(cli)
 
-    cli.aumenta_saldo(200, bd)
+    c.aumenta_saldo(200, bd)
 
-    return cli
-
-
-global estoque
-global cli
+    return c
 
 
 def remover_produto_carrinho(nome):
@@ -77,11 +74,13 @@ def finalizar_compra():
 
         Venda.valor_total = 0.0
         Venda.carrinho = dict((x, y) for x, y in bd.get_products_id())
+    # TODO else return not enough balance
 
 
 if __name__ == '__main__':
     global estoque
     global cli
+    global bd
     bd = Database()
     bd.create_database()
     # cli = mock_cliente(bd)

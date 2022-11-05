@@ -8,4 +8,4 @@ class Venda:
     data: float
     valor: float
     valor_total = 0.0
-    carrinho = dict()  # TODO will conflict when save?
+    carrinho = dict()
