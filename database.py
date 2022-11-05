@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector.cursor import MySQLCursor
 from mysql.connector import MySQLConnection
 from paprika import *
+from venda import Venda
 
 initial_schema_location: str = "sql_files/initial_schema.sql"
 clean_database_location: str = "sql_files/clean_database.sql"
@@ -12,6 +13,67 @@ clean_database_location: str = "sql_files/clean_database.sql"
 class Database:
     my_cursor: MySQLCursor
     mydb: MySQLConnection
+
+    def sell_sale_products(self, venda):
+        for id, quantity in Venda.carrinho.items():
+            if quantity > 0:
+                price = self.get_product_value(id)
+
+                self.decrement_product_quantity(id, quantity)
+                query = "INSERT INTO produto_venda (id_produto, id_venda, quantidade, valor)" \
+                        "VALUES ('{0}', '{1}', '{2}', '{3}')" \
+                    .format(id, venda.id, quantity, quantity * price[0])
+
+                self.my_cursor.execute(query)
+                self.mydb.commit()
+
+        return self.my_cursor.lastrowid
+
+    def get_product_value(self, id):
+        query = "SELECT valor FROM produto WHERE id = '{0}'"\
+            .format(id)
+        self.my_cursor.execute(query)
+
+        return self.my_cursor.fetchone()
+
+    def make_sale(self, venda):
+        query = "INSERT INTO venda (id_cliente, valor_total, data) " \
+                "VALUES ('{0}', '{1}', '{2}')" \
+            .format(venda.id_cliente, venda.valor_total, venda.data)
+
+        self.my_cursor.execute(query)
+        self.mydb.commit()
+
+        sale_id = self.my_cursor.lastrowid
+        venda.id = sale_id
+
+        return sale_id
+
+    def authenticate_client(self, email, password):
+        query = "SELECT * FROM cliente WHERE " \
+                "email = '{0}' AND senha = '{1}'" \
+                .format(email, password)
+        self.my_cursor.execute(query)
+
+        return self.my_cursor.fetchone()
+
+    def get_products_id(self):
+        query = "SELECT id, 0 FROM produto"
+        self.my_cursor.execute(query)
+
+        return self.my_cursor.fetchall()
+
+    def get_products_id_and_quantity(self):
+        query = "SELECT id, quantidade FROM produto"
+        self.my_cursor.execute(query)
+
+        return self.my_cursor.fetchall()
+
+    def decrement_product_quantity(self, id, quantity):
+        query = "UPDATE produto SET quantidade = quantidade - '{0}' " \
+                "WHERE id = '{1}'".format(quantity, id)
+        self.my_cursor.execute(query)
+        self.mydb.commit()
 
     def find_product_by_name(self, nome):
         query = "SELECT * FROM produto WHERE nome = '{0}'".format(nome)
@@ -69,7 +131,7 @@ class Database:
             password="root"
         )
 
-        self.my_cursor = self.mydb.cursor()
+        self.my_cursor = self.mydb.cursor(buffered=True)
 
     def _execute_sql_script(self, file_location):
         with open(file_location, encoding='utf-8') as f:

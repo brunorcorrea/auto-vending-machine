@@ -2,9 +2,9 @@ from paprika import *
 
 
 @data
-class ProdutosVendidos:
+class ProdutoCarrinho:
     id: int
     id_cliente: int
-    id_venda: int
+    id_produto: int
     quantidade: int
     valor: float

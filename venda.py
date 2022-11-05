@@ -5,5 +5,7 @@ from paprika import *
 class Venda:
     id: int
     id_cliente: int
-    valor: float
     data: float
+    valor: float
+    valor_total = 0.0
+    carrinho = dict()  # TODO will conflict when save?

@@ -17,11 +17,22 @@ class Cliente:
             self.saldo += value
             bd.update_client_balance(self)
 
-    def autentica_cliente(self, email: str, senha: str):  # TODO change to database values
-        if self.senha == senha and self.email == email:
-            return True
+    @staticmethod
+    def autentica_cliente(bd, email: str, senha: str):  # TODO change clientDAO
+        cliente_salvo = bd.authenticate_client(email, senha)
+        if cliente_salvo is not None:
+            cliente = Cliente()
+            cliente.id = cliente_salvo[0]
+            cliente.cpf = cliente_salvo[1]
+            cliente.nome = cliente_salvo[2]
+            cliente.email = cliente_salvo[3]
+            cliente.telefone = cliente_salvo[4]
+            cliente.senha = cliente_salvo[5]
+            cliente.saldo = cliente_salvo[6]
 
-        return False
+            return cliente
+        else:
+            return None  # TODO wrong login screen
 
     def atualiza_cadastro(self, bd):
         novo_nome = input("Insira o novo nome: ")
