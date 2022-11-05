@@ -34,7 +34,7 @@ class Cliente:
         else:
             return None  # TODO wrong login screen
 
-    def atualiza_cadastro(self, bd):
+    def atualiza_cadastro(self, bd):  # TODO will not be used in the interface
         novo_nome = input("Insira o novo nome: ")
         if novo_nome.strip() != "":
             self.nome = novo_nome
