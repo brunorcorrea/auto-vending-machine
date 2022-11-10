@@ -18,7 +18,8 @@ class Cliente:
             bd.update_client_balance(self)
 
     @staticmethod
-    def autentica_cliente(bd, email: str, senha: str):  # TODO change clientDAO
+    def autentica_cliente(email: str, senha: str):
+        bd = Database()
         cliente_salvo = bd.authenticate_client(email, senha)
         if cliente_salvo is not None:
             cliente = Cliente()

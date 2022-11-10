@@ -16,7 +16,7 @@ def build_home_screen(main_layout):
         font_size=96,
         bold=True,
         color=(0, 0, 0, 1),
-        pos=(0, 1024 / 3),
+        pos=(0, 1080 / 3)
     )
 
     slogan_label = Label(
@@ -59,5 +59,5 @@ def build_home_screen(main_layout):
 
 
 def open_login_screen(instance):
-    layout.clear_widgets()  # limpa todos os elementos da tela
+    layout.clear_widgets()
     return build_login_screen(layout)

@@ -75,6 +75,12 @@ class Database:
         self.my_cursor.execute(query)
         self.mydb.commit()
 
+    def find_all_products(self):
+        query = "SELECT * FROM produto"
+        self.my_cursor.execute(query)
+
+        return self.my_cursor.fetchall()
+
     def find_product_by_name(self, nome):
         query = "SELECT * FROM produto WHERE nome = '{0}'".format(nome)
         self.my_cursor.execute(query)

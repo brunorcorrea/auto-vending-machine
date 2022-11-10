@@ -1,7 +1,6 @@
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
-from cliente import Cliente
 from database import *
 from screens.home_screen import build_home_screen
 
@@ -13,7 +12,7 @@ layout = FloatLayout(
 )
 
 
-class MyApp(App):
+class VendingMachineApp(App):
 
     def build(self):
         return build_home_screen(layout)
@@ -23,4 +22,4 @@ if __name__ == '__main__':
     global bd
     bd = Database()
     bd.create_database()
-    MyApp().run()
+    VendingMachineApp().run()
