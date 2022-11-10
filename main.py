@@ -3,35 +3,105 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
-
+from kivy.uix.floatlayout import FloatLayout
+from kivy.core.window import Window
 from cliente import Cliente
 from database import *
 
+Window.clearcolor = (0.85, 0.85, 0.85, 1)
+Window.maximize()
 
-class LoginScreen(GridLayout):
-
-    def __init__(self, **kwargs):
-        super(LoginScreen, self).__init__(**kwargs)
-        self.cols = 2
-        self.add_widget(Label(text='User Name'))
-        self.username = TextInput(multiline=False)
-        self.add_widget(self.username)
-        self.add_widget(Label(text='password'))
-        self.password = TextInput(password=True, multiline=False)
-        self.add_widget(self.password)
-        self.login_button = Button(text='Fazer Login', font_size=14)
-        self.login_button.bind(on_press=self.fazer_login)
-        self.add_widget(self.login_button)
-
-    def fazer_login(self, instance):
-        # fazer login
-        print(Cliente.autentica_cliente(bd, self.username.text, self.password.text))
+layout = FloatLayout(
+    size=(1920, 1080)
+)
 
 
 class MyApp(App):
 
     def build(self):
-        return LoginScreen()
+        return layout
+
+
+class LoginScreen:
+    layout = FloatLayout(
+        size=(1920, 1080)
+    )
+
+    def __init__(self):
+        store_name_label = Label(
+            text='24/7 Store',
+            font_size=96,
+            bold=True,
+            color=(0, 0, 0, 1),
+            pos=(0, 1024 / 3),
+        )
+
+        email_label = Label(
+                text='Email',
+                font_size=24,
+                color=(0, 0, 0, 1),
+                pos=(1440 / 2 + 1440 * 0.2, 1024 / 8)
+            )
+
+        layout.add_widget(
+            TextInput(
+                pos=(0, 1024 / 8)
+            )
+        )
+
+        layout.add_widget(store_name_label)
+        layout.add_widget(email_label)
+
+
+def open_login_screen(instance):
+    layout.clear_widgets()  # limpa todos os elementos da tela
+    return LoginScreen()
+
+
+class HomeScreen:
+    store_name_label = Label(
+        text='24/7 Store',
+        font_size=96,
+        bold=True,
+        color=(0, 0, 0, 1),
+        pos=(0, 1024 / 3),
+    )
+
+    slogan_label = Label(
+        text='Disponível a qualquer momento!',
+        font_size=32,
+        color=(0, 0, 0, 1),
+        pos=(0, 1024 / 4)
+    )
+
+    signin_button = Button(
+        text='Cadastrar-se',
+        font_size=32,
+        bold=True,
+
+        size_hint=(.15, .10),
+        pos=(1440 / 2 + 1440 * 0.075, 1024 / 10),
+        background_normal='',
+        background_color=(0.66, 0.33, 0.33, 1)
+    )
+
+    login_button = Button(
+        text='Já é cliente? Entrar',
+        font_size=20,
+        bold=True,
+        color=(0, 0, 0, 1),
+        size_hint=(.4, .10),
+        pos=(1440 / 2 - 0.09 * 1440, 1024 / 26),
+        background_normal='',
+        background_color=(0, 0, 0, 0)
+    )
+
+    login_button.bind(on_release=open_login_screen)
+
+    layout.add_widget(store_name_label)
+    layout.add_widget(slogan_label)
+    layout.add_widget(signin_button)
+    layout.add_widget(login_button)
 
 
 if __name__ == '__main__':

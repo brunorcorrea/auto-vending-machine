@@ -16,7 +16,7 @@ def mock_cliente():
         saldo=0.0
     )  # TODO create method to create Cliente?
 
-    bd.create_client(cli)
+    bd.create_client(c)
 
     c.aumenta_saldo(200, bd)
 
@@ -83,20 +83,20 @@ if __name__ == '__main__':
     global bd
     bd = Database()
     bd.create_database()
-    # cli = mock_cliente(bd)
-    estoque = dict((x, y) for x, y in bd.get_products_id_and_quantity())
-    Venda.carrinho = dict((x, y) for x, y in bd.get_products_id())
-
-    email = "bruno@email.com"
-    senha = "12345"
-    cli = Cliente.autentica_cliente(bd, email, senha)
-
-    adicionar_produto_carrinho("Coca-Cola")
-    adicionar_produto_carrinho("Coca-Cola")
-    adicionar_produto_carrinho("Ruffles")
-    adicionar_produto_carrinho("Ruffles")
-    adicionar_produto_carrinho("Ruffles")
-
-    remover_produto_carrinho("Ruffles")
-
-    finalizar_compra()
+    cli = mock_cliente()
+    # estoque = dict((x, y) for x, y in bd.get_products_id_and_quantity())
+    # Venda.carrinho = dict((x, y) for x, y in bd.get_products_id())
+    #
+    # email = "bruno@email.com"
+    # senha = "12345"
+    # cli = Cliente.autentica_cliente(bd, email, senha)
+    #
+    # adicionar_produto_carrinho("Coca-Cola")
+    # adicionar_produto_carrinho("Coca-Cola")
+    # adicionar_produto_carrinho("Ruffles")
+    # adicionar_produto_carrinho("Ruffles")
+    # adicionar_produto_carrinho("Ruffles")
+    #
+    # remover_produto_carrinho("Ruffles")
+    #
+    # finalizar_compra()
