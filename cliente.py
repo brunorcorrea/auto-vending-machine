@@ -1,6 +1,9 @@
 from paprika import *
 from database import Database
 
+global starter_balance
+starter_balance = 300
+
 
 @data
 class Cliente:
@@ -53,3 +56,19 @@ class Cliente:
             self.senha = nova_senha
 
         bd.update_client(self)
+
+    @staticmethod
+    def cria_cliente(nome, cpf, email, telefone, senha):
+        bd = Database()
+        cliente = Cliente()
+        cliente.nome = nome
+        cliente.cpf = cpf
+        cliente.email = email
+        cliente.telefone = telefone
+        cliente.senha = senha
+        cliente.saldo = starter_balance
+        cliente.id = bd.create_client(cliente)
+
+        return cliente
+
+# cria cliente

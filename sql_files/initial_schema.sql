@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS cliente
     email    VARCHAR(255) not null,
     telefone VARCHAR(11)  not null,
     senha    VARCHAR(30)  not null,
-    saldo    float default 0.0
+    saldo    float
 );
 
 CREATE TABLE IF NOT EXISTS produto

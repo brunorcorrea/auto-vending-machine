@@ -10,6 +10,9 @@ db = Database()
 total_cost = 0.00
 
 
+# fazer lista com dict de produtos e quantidade
+
+
 def show_product():
     products = db.find_all_products()
     cont = 10

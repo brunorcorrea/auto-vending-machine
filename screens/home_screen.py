@@ -2,6 +2,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from screens.login_screen import build_login_screen
+from screens.register_screen import build_register_screen
 
 
 global layout
@@ -42,12 +43,13 @@ def build_home_screen(main_layout):
         font_size=20,
         bold=True,
         color=(0, 0, 0, 1),
-        size_hint=(.4, .10),
-        pos=(1440 / 2 - 0.09 * 1440, 1024 / 26),
+        size_hint=(.4, .05),
+        pos=(1440 / 2 - 0.09 * 1440, 1024 / 20),
         background_normal='',
         background_color=(0, 0, 0, 0)
     )
 
+    signin_button.bind(on_release=open_register_screen)
     login_button.bind(on_release=open_login_screen)
 
     layout.add_widget(store_name_label)
@@ -61,3 +63,8 @@ def build_home_screen(main_layout):
 def open_login_screen(instance):
     layout.clear_widgets()
     return build_login_screen(layout)
+
+
+def open_register_screen(instance):
+    layout.clear_widgets()
+    return build_register_screen(layout)
