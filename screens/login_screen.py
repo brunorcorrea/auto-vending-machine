@@ -28,35 +28,39 @@ def build_login_screen(main_layout):
         text='Email:',
         font_size=24,
         color=(0, 0, 0, 1),
-        pos=(0, 100)
+        size_hint=(0, 0),
+        pos_hint={'x': .4, 'top': .5}
     )
 
     email_text_input = TextInput(
         foreground_color=(1, 1, 1, 1),
         multiline=False,
-        size_hint=(.2, None),
         height=30,
         background_normal='',
         background_color=(0, 0, 0, 1),
-        pos=(0, 200)
+        size_hint=(.2, .04),
+        pos_hint={'x': .42, 'top': .518},
+        halign='center'
     )
 
     password_label = Label(
         text='Senha:',
         font_size=24,
         color=(0, 0, 0, 1),
-        pos=(0, 0)
+        size_hint=(0, 0),
+        pos_hint={'x': .4, 'top': .4}
     )
 
     password_text_input = TextInput(
         foreground_color=(1, 1, 1, 1),
         multiline=False,
         password=True,
-        size_hint=(.2, None),
         height=30,
         background_normal='',
         background_color=(0, 0, 0, 1),
-        pos=(0, 100)
+        size_hint=(.2, .04),
+        pos_hint={'x': .42, 'top': .418},
+        halign='center'
     )
 
     login_button = Button(
@@ -64,7 +68,7 @@ def build_login_screen(main_layout):
         font_size=32,
         bold=True,
         size_hint=(.15, .10),
-        pos=(0, 0),
+        pos_hint={'x': .425, 'top': .2},
         background_normal='',
         background_color=(0.66, 0.33, 0.33, 1)
     )
@@ -82,11 +86,8 @@ def build_login_screen(main_layout):
 
 
 def user_login(instance):
-    # email = email_text_input.text
-    # password = password_text_input.text
-
-    email = "gabriel@email.com"
-    password = "12345"
+    email = email_text_input.text
+    password = password_text_input.text
 
     user = Cliente.autentica_cliente(email, password)
 
