@@ -3,8 +3,8 @@ import screens.home_screen
 import screens.receipt_screen
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from database import Database
-from venda import Venda
+from model.database import Database
+from model.venda import Venda
 from datetime import datetime
 
 global layout

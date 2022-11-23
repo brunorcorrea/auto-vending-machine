@@ -1,7 +1,7 @@
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from venda import Venda
 import screens.home_screen
+from datetime import datetime
 
 global layout
 global client
@@ -71,6 +71,14 @@ def build_receipt_screen(main_layout, user, last_sale, cart_qtd, cart_label):
         pos_hint={'x': .115, 'top': .67}
     )
 
+    date_label = Label(
+        text='Data: {0}\nHorário: {1}'.format(sale.data.strftime("%d-%m-%Y"), sale.data.strftime("%H:%M:%S")),
+        font_size=24,
+        color=(0, 0, 0, 1),
+        size_hint=(0, 0),
+        pos_hint={'x': .85, 'top': .8}
+    )
+
     products_label = Label(
         text='Produtos:',
         font_size=24,
@@ -104,6 +112,7 @@ def build_receipt_screen(main_layout, user, last_sale, cart_qtd, cart_label):
     layout.add_widget(client_label)
     layout.add_widget(name_label)
     layout.add_widget(cpf_label)
+    layout.add_widget(date_label)
     layout.add_widget(products_label)
     layout.add_widget(total_value)
     layout.add_widget(return_home_button)

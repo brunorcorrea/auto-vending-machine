@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector.cursor import MySQLCursor
 from mysql.connector import MySQLConnection
 from paprika import *
-from venda import Venda
+from model.venda import Venda
 
 initial_schema_location: str = "sql_files/initial_schema.sql"
 clean_database_location: str = "sql_files/clean_database.sql"

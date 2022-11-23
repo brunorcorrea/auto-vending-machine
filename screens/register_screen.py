@@ -2,7 +2,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
-from cliente import Cliente
+from model.cliente import Cliente
 import screens.home_screen
 
 global layout

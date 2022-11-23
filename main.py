@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
-from database import *
+from model.database import *
 from screens.home_screen import build_home_screen
 
 Window.clearcolor = (0.85, 0.85, 0.85, 1)

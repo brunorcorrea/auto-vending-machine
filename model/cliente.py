@@ -1,5 +1,5 @@
 from paprika import *
-from database import Database
+from model.database import Database
 
 global starter_balance
 starter_balance = 300
@@ -36,26 +36,7 @@ class Cliente:
 
             return cliente
         else:
-            return None  # TODO wrong login screen
-
-    def atualiza_cadastro(self, bd):  # TODO will not be used in the interface
-        novo_nome = input("Insira o novo nome: ")
-        if novo_nome.strip() != "":
-            self.nome = novo_nome
-
-        novo_email = input("Insira o novo email: ")
-        if novo_email.strip() != "":  # TODO validate if email is valid
-            self.email = novo_email
-
-        novo_telefone = input("Insira o novo telefone: ")
-        if novo_telefone.strip() != "":
-            self.telefone = novo_telefone
-
-        nova_senha = input("Insira a nova senha: ")
-        if nova_senha.strip() != "":
-            self.senha = nova_senha
-
-        bd.update_client(self)
+            return None
 
     @staticmethod
     def cria_cliente(nome, cpf, email, telefone, senha):

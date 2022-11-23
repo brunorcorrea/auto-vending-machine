@@ -1,7 +1,7 @@
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
-from cliente import Cliente
+from model.cliente import Cliente
 from screens.products_cart_screen import build_product_cart_screen
 
 global layout
