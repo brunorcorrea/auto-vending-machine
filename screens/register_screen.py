@@ -1,6 +1,7 @@
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
+from kivy.uix.popup import Popup
 from cliente import Cliente
 import screens.home_screen
 
@@ -161,9 +162,15 @@ def user_register(instance):
     tel = tel_text_input.text
     password = password_text_input.text
 
-    user = Cliente.cria_cliente(name, cpf, email, tel, password)
+    if name == '' or cpf == '' or email == '' or tel == '' or password == '':
+        popup = Popup(title='Erro',
+                      content=Label(text='Preencha todos os campos!'),
+                      pos_hint={'x': .4, 'top': .8},
+                      size_hint=(None, None), size=(400, 400))
+        popup.open()
+    else:
+        user = Cliente.cria_cliente(name, cpf, email, tel, password)
 
-    if user is not None:
-        layout.clear_widgets()
-        return screens.home_screen.build_home_screen(layout)
-    # TODO else add popup
+        if user.id is not None:
+            layout.clear_widgets()
+            return screens.home_screen.build_home_screen(layout)
