@@ -1,5 +1,6 @@
 import time
 import screens.home_screen
+import screens.receipt_screen
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from database import Database
@@ -169,6 +170,9 @@ def add_product_to_cart(instance):
 
 
 def build_product_cart_screen(main_layout, user):
+    Venda.valor_total = 0.0
+    Venda.carrinho = dict((x, y) for x, y in db.get_products_id())
+
     global layout
     global total_value
     global client
@@ -246,19 +250,17 @@ def finish_sale(instance):
     global client
     Venda.carrinho = cart
     Venda.valor_total = total_value.text[9:]
-    venda = Venda()
-    venda.data = datetime.fromtimestamp(time.time())
-    venda.id_cliente = client.id
-    venda.valor = Venda.valor_total
+    sale = Venda()
+    sale.data = datetime.fromtimestamp(time.time())
+    sale.id_cliente = client.id
+    sale.valor = Venda.valor_total
 
-    if float(client.saldo) >= float(venda.valor):
-        db.make_sale(venda)
-        client.saldo -= float(venda.valor)
+    if float(client.saldo) >= float(sale.valor):
+        db.make_sale(sale)
+        client.saldo -= float(sale.valor)
         db.update_client_balance(client)
-        db.sell_sale_products(venda)
-
-        Venda.valor_total = 0.0
-        cart = Venda.carrinho = dict((x, y) for x, y in db.get_products_id())
+        db.sell_sale_products(sale)
+        cart = dict((x, y) for x, y in db.get_products_id())
 
         layout.clear_widgets()
-        return screens.home_screen.build_home_screen(layout)
+        return screens.receipt_screen.build_receipt_screen(layout, client, sale, cart_qtd, cart_label)

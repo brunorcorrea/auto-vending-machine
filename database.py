@@ -87,10 +87,10 @@ class Database:
 
         return self.my_cursor.fetchone()
 
-    def create_client(self, client):  # TODO clienteDAO
-        query = "INSERT INTO cliente (cpf, nome, email, telefone, senha) " \
-                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')" \
-            .format(client.cpf, client.nome, client.email, client.telefone, client.senha)
+    def create_client(self, client):
+        query = "INSERT INTO cliente (cpf, nome, email, telefone, senha, saldo) " \
+                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')" \
+            .format(client.cpf, client.nome, client.email, client.telefone, client.senha, client.saldo)
 
         self.my_cursor.execute(query)
         self.mydb.commit()
@@ -125,7 +125,8 @@ class Database:
         self._create_venda_table()
         self._create_produto_venda_table()
 
-        # self._create_products()
+        if len(self.find_all_products()) == 0:
+            self._create_products()
 
     def clean_database(self):
         self._execute_sql_script(clean_database_location)
@@ -148,8 +149,8 @@ class Database:
         query = "INSERT INTO produto (nome, categoria, descricao, quantidade, valor) " \
                 "VALUES (%s, %s, %s, %s, %s)"
 
-        values = [("Coca-Cola", "Bebidas", "Refrigerante gaseificado 2L", 5, 12.0),
-                  ("Ruffles", "Snack", "Batata frita 350g", 11, 7.80)]
+        values = [("Coca-Cola", "Bebidas", "Refrigerante gaseificado 2L", 12, 12.0),
+                  ("Ruffles", "Snack", "Batata frita 350g", 15, 7.80)]
 
         self.my_cursor.executemany(query, values)
         self.mydb.commit()
@@ -163,7 +164,7 @@ class Database:
             email    VARCHAR(255) not null,
             telefone VARCHAR(11)  not null,
             senha    VARCHAR(30)  not null,
-            saldo    float default 0.0
+            saldo    float
         );""")
 
     def _create_produto_table(self):

@@ -70,5 +70,3 @@ class Cliente:
         cliente.id = bd.create_client(cliente)
 
         return cliente
-
-# cria cliente
